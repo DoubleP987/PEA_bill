@@ -19,7 +19,7 @@ int main(){
     // menu();
     // printf("Enter units: ");
     // scanf("%d", &unit);
-    cost = residentialTOURate();
+    cost = smallBusinessNormalRate();
     printf("%.2lf", cost);
 
     return 0;
@@ -29,7 +29,6 @@ void getInput(char *msg, int *value){
         printf("ข้อมูลไม่ถูกต้อง\n");
         while(getchar() != '\n');
     }
-    printf("cost inside getInput %d\n", *value);
 }
 void getOption(char *msg, int *choice, int option){
     while(printf("%s", msg), scanf("%d", choice) != 1 || *choice < 1 || *choice > option){
@@ -164,21 +163,20 @@ float smallBusinessNormalRate(){
     switch(choice){
         case 1:
         cost += 312.24;
-        float unit_price = 312.24;
         break;
         case 2:
-        cost += 24.62;
+        cost += 33.29;
         break;
     }
     getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
     if(choice == 1){
+        cost += unit * 3.9086;
+    }else if(choice == 2){
         if(unit > 400) cost += (unit - 400) * 4.4217, unit = 400;
         if(unit > 150) cost += (unit - 150) * 4.2218, unit = 150;
         cost += unit * 3.2484;
-    }else{
-        cost += unit * 3.9086;
     }
-    float sumFt = unit * Ft;
+    float sumFt = Ft * unit;
     vat(&cost, sumFt);
     cost += sumFt;
 
