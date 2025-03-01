@@ -6,15 +6,16 @@
 const float Ft = 0.3672;
 
 void menu();
-void vat(); //vat 7% calculation
-double residentialNormalRate(int unit);
-double residentialTOURate();
+void vat(float *cost, float sumFt); //vat 7% calculation
 void getInput(char *msg, int *value);
 void getOption(char *msg, int *choice, int option);
+float residentialNormalRate(int unit);
+float residentialTOURate();
+float smallBusinessNormalRate();
 
 int main(){
     int unit;
-    double cost;
+    float cost;
     // menu();
     // printf("Enter units: ");
     // scanf("%d", &unit);
@@ -28,6 +29,7 @@ void getInput(char *msg, int *value){
         printf("ข้อมูลไม่ถูกต้อง\n");
         while(getchar() != '\n');
     }
+    printf("cost inside getInput %d\n", *value);
 }
 void getOption(char *msg, int *choice, int option){
     while(printf("%s", msg), scanf("%d", choice) != 1 || *choice < 1 || *choice > option){
@@ -87,11 +89,11 @@ void menu(){
     //         break;
     // }
 }
-void vat(double *cost){
-    *cost += ((*cost + Ft) / 100 * 7);
+void vat(float *cost, float sumFt){
+    *cost += ((*cost + sumFt) * 7 / 100);
 }
-double residentialNormalRate(int unit){ //ประเภทที่ 1.1 บ้านอยู่อาศัย (อัตราปกติ)
-    double cost = 0, unit_tmp = unit;
+float residentialNormalRate(int unit){ //ประเภทที่ 1.1 บ้านอยู่อาศัย (อัตราปกติ)
+    float cost = 0, unit_tmp = unit;
     int choice;
     getOption("1. ประเภทที่ 1.1.1 ใช้พลังงานไฟฟ้าไม่เกิน 150 หน่วยต่อเดือน\n2. ประเภทที่ 1.1.2 ใช้พลังงานไฟฟ้าเกิน 150 หน่วยต่อเดือน\nEnter choice: ", &choice, 2);
     switch(choice){
@@ -105,7 +107,7 @@ double residentialNormalRate(int unit){ //ประเภทที่ 1.1 บ้
         cost += unit * 2.3488;
         cost += unit_tmp * Ft;
         cost += 8.19;
-        vat(&cost);
+        vat(&cost, (unit_tmp * Ft));
         break;
 
     case 2:
@@ -114,24 +116,24 @@ double residentialNormalRate(int unit){ //ประเภทที่ 1.1 บ้
         cost += unit * 3.2482;
         cost += unit_tmp * Ft; 
         cost += 24.62;
-        vat(&cost);
+        vat(&cost, (unit_tmp * Ft));
+        cost += Ft;
         break;
     }
     return cost;
 }
-double residentialTOURate(){ //ประเภทที่ 1.2 บ้านอยู่อาศัย (อัตรา TOU)
-    int choice, unit;
+float residentialTOURate(){ //ประเภทที่ 1.2 บ้านอยู่อาศัย (อัตรา TOU)
+    int choice, unit1, unit2, unit3;
     float onPeak, offPeak, holiday, unit_price;
-    double cost = 0;
+    float cost = 0;
     printf("(1) แรงดัน 22 - 33 กิโลโวลต์\n(2) แรงดันต่ำกว่า 22 กิโลโวลต์\n");
-    getOption("เลือกประเภทแรงดันไฟฟ้า: ", &choice, 2);
+    getOption("เลือกประเภทแรงดันไฟฟฟ้า: ", &choice, 2);
     
     switch(choice){
         case 1:
         onPeak = 5.1135;
         offPeak = 2.6037;
         holiday = 2.6037;
-        unit_price = 3.9086;
         cost += 312.24;
         break;
         case 2:
@@ -141,14 +143,31 @@ double residentialTOURate(){ //ประเภทที่ 1.2 บ้านอ�
         cost += 24.62;
         break;
     }
-    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง On Peak (หน่วย): ", &unit);
-    cost += unit * onPeak;
-    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Off Peak (หน่วย): ", &unit);
-    cost += unit * offPeak;
-    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Holiday (หน่วย): ", &unit);
-    cost += unit * holiday;
-    vat(&cost);
-    cost += Ft;
-    
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง On Peak (หน่วย): ", &unit1);
+    cost += unit1 * onPeak;
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Off Peak (หน่วย): ", &unit2);
+    cost += unit2 * offPeak;
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Holiday (หน่วย): ", &unit3);
+    cost += unit3 * holiday;
+    int sumUnit = unit1 + unit2 + unit3;
+    int sumFt = sumUnit * Ft;
+    vat(&cost, sumFt);
+    cost += sumUnit * Ft;
+
     return cost;
+}
+float smallBusinessNormalRate(){
+    int choice, unit;
+    float cost = 0;
+    printf("(1) แรงดัน 22 - 33 กิโลโวลต์\n(2) แรงดันต่ำกว่า 22 กิโลโวลต์\n");
+    getOption("เลือกประเภทแรงดันไฟฟฟ้า: ", &choice, 2);
+    switch(choice){
+        case 1:
+        cost += 312.24;
+        float unit_price = 312.24;
+        break;
+        case 2:
+        cost += 24.62;
+        break;
+    }
 }
