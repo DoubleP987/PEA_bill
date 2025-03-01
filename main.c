@@ -113,7 +113,7 @@ float residentialNormalRate(int unit){ //ประเภทที่ 1.1 บ้�
     case 2:
         if(unit > 400) cost += (unit - 400) * 4.4217, unit = 400;
         if(unit > 150) cost += (unit - 150) * 4.2218, unit = 150;
-        cost += unit * 3.2482;
+        cost += unit * 3.2484;
         cost += unit_tmp * Ft; 
         cost += 24.62;
         vat(&cost, (unit_tmp * Ft));
@@ -152,7 +152,7 @@ float residentialTOURate(){ //ประเภทที่ 1.2 บ้านอย
     int sumUnit = unit1 + unit2 + unit3;
     int sumFt = sumUnit * Ft;
     vat(&cost, sumFt);
-    cost += sumUnit * Ft;
+    cost += sumFt;
 
     return cost;
 }
@@ -170,4 +170,17 @@ float smallBusinessNormalRate(){
         cost += 24.62;
         break;
     }
+    getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
+    if(choice == 1){
+        if(unit > 400) cost += (unit - 400) * 4.4217, unit = 400;
+        if(unit > 150) cost += (unit - 150) * 4.2218, unit = 150;
+        cost += unit * 3.2484;
+    }else{
+        cost += unit * 3.9086;
+    }
+    float sumFt = unit * Ft;
+    vat(&cost, sumFt);
+    cost += sumFt;
+
+    return cost;
 }
