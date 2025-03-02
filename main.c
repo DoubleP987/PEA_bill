@@ -165,10 +165,11 @@ float smallBusinessNormalRate(){
         cost += 312.24;
         break;
         case 2:
-        cost += 33.29;
+        cost += 46.16;
         break;
     }
     getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
+    int unit_tmp = unit;
     if(choice == 1){
         cost += unit * 3.9086;
     }else if(choice == 2){
@@ -176,7 +177,8 @@ float smallBusinessNormalRate(){
         if(unit > 150) cost += (unit - 150) * 4.2218, unit = 150;
         cost += unit * 3.2484;
     }
-    float sumFt = Ft * unit;
+    float sumFt = Ft * unit_tmp;
+    printf("%.2lf\n", sumFt);
     vat(&cost, sumFt);
     cost += sumFt;
 
