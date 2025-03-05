@@ -4,32 +4,41 @@
 
 const float Ft = 0.3672;
 
-void menu();
-float PF(int kw, int kv);
+float menu();
+float KVCharge(float kv, float kw);
 void vat(float *cost, float sumFt); //vat 7% calculation
 void getInput(char *msg, int *value);
+void getFloat(char *msg, float *value);
 void getOption(char *msg, int *choice, int option);
 float residentialNormalRate(); //done
 float residentialTOURate(); //done
 float smallBusinessNormalRate(); //done
 float smallBusinessTOURate(); //done
-float mediumBusiness();
+float mediumBusiness(); //done
 
 float nonProfitOrganization(); //done
 float agricultureWaterPumping(); //done;
 float agricultureWaterPumpingTOURate(); //done;
+
 int main(){
     int unit;
     float cost;
 
-    cost = agricultureWaterPumping(); //test
-
-    printf("%.2lf", cost);
+    cost = menu(); //test
+    printf("cost price = %f\n", cost);
+    float display_cost = round(cost * 100.0) / 100.0;
+    printf("last price = %.2f\n", display_cost);
 
     return 0;
 }
 void getInput(char *msg, int *value){
     while(printf("%s", msg), scanf("%d", value) != 1){
+        printf("ข้อมูลไม่ถูกต้อง\n");
+        while(getchar() != '\n');
+    }
+}
+void getFloat(char *msg, float *value){
+    while(printf("%s", msg), scanf("%f", value) != 1){
         printf("ข้อมูลไม่ถูกต้อง\n");
         while(getchar() != '\n');
     }
@@ -40,79 +49,77 @@ void getOption(char *msg, int *choice, int option){
         while(getchar() != '\n');
     }
 }
-// void menu(){
-//     int choice;
-//     printf("(1) 1.1 บ้านอยู่อาศัย (อัตราปกติ)\n");
-//     printf("(2) 1.2 บ้านอยู่อาศัย (อัตรา TOU)\n");
-//     printf("(3) 2.1 กิจการขนาดเล็ก (อัตราปกติ)\n");
-//     printf("(4) 2.2 กิจการขนาดเล็ก (อัตรา TOU)\n");
-//     printf("(5) 3.1 กิจการขนาดกลาง\n");
-//     printf("(6) 3.2 กิจการขนาดกลาง (อัตรา TOU)\n");
-//     printf("(7) 4.1 กิจการขนาดใหญ่ (อัตรา TOD)\n");
-//     printf("(8) 4.2 กิจการขนาดใหญ่ (อัตรา TOU)\n");
-//     printf("(9) 5.1 กิจการเฉพาะอย่าง (อัตราปกติ)\n");
-//     printf("(10) 5.2 กิจการเฉพาะอย่าง (อัตรา TOU)\n");
-//     printf("(11) 6.1 องค์กรที่ไม่แสวงหากำไร\n");
-//     printf("(12) 6.2 องค์กรที่ไม่แสวงหากำไร (อัตรา TOU)\n");
-//     printf("(13) 7.1 สูบน้ำเพื่อการเกษตร\n");
-//     printf("(14) 7.2 สูบน้ำเพื่อการเกษตร (อัตรา TOU)\n");
-//     printf("(15) 8. ไฟฟ้าชั่วคราว\n");
-//     printf("เลือกประเภทไฟฟ้า(1 - 15):\n");
-//     scanf("%d", &choice);
-//     switch(choice){
-//         case '1':
-//         residentialNormalRate();
-//             break;
-//         case '2':
-//         residentialTOURate();
-//             break;
-//         case '3':
-//         smallBusinessNormalRate();
-//             break;
-//         case '4':
-//         smallBusinessTOURate();
-//             break;
-//         case '5':
-//         mediumBusiness();
-//             break;
-//         case '6':
-//         mediumBusinessTOURate();
-//             break;
-//         case '7':
-//         largeBusinessTODRate();
-//             break;
-//         case '8':
-//         largeBusinessTOURate();
-//             break;
-//         case '9':
-//         specialBusinessNormalRate();
-//             break;
-//         case '10':
-//         specialBusinessTOURate();
-//             break;
-//         case '11':
-//         nonProfitOrganization();
-//             break;
-//         case '12':
-//         nonProfitOrganizationTOURate();
-//             break;
-//         case '13':
-//         agricultureWaterPumping();
-//             break;
-//         case '14':
-//         agricultureWaterPumpingTOURate();
-//             break;
-//         case '15':
-//         temporaryElectricity();
-//             break;
-//     }
-// }
-void vat(float *cost, float sumFt){
-    *cost += ((*cost + sumFt) * 7 / 100);
+float menu(){
+    int choice;
+    printf("(1) 1.1 บ้านอยู่อาศัย (อัตราปกติ)\n"); 
+    printf("(2) 1.2 บ้านอยู่อาศัย (อัตรา TOU)\n"); 
+    printf("(3) 2.1 กิจการขนาดเล็ก (อัตราปกติ)\n"); 
+    printf("(4) 2.2 กิจการขนาดเล็ก (อัตรา TOU)\n"); 
+    printf("(5) 3.1 กิจการขนาดกลาง\n");
+    printf("(6) 3.2 กิจการขนาดกลาง (อัตรา TOU)\n");
+    printf("(7) 4.1 กิจการขนาดใหญ่ (อัตรา TOD)\n");
+    printf("(8) 4.2 กิจการขนาดใหญ่ (อัตรา TOU)\n");
+    printf("(9) 5.1 กิจการเฉพาะอย่าง (อัตราปกติ)\n");
+    printf("(10) 5.2 กิจการเฉพาะอย่าง (อัตรา TOU)\n");
+    printf("(11) 6.1 องค์กรที่ไม่แสวงหากำไร\n");
+    printf("(12) 6.2 องค์กรที่ไม่แสวงหากำไร (อัตรา TOU)\n");
+    printf("(13) 7.1 สูบน้ำเพื่อการเกษตร\n");
+    printf("(14) 7.2 สูบน้ำเพื่อการเกษตร (อัตรา TOU)\n");
+    printf("(15) 8. ไฟฟ้าชั่วคราว\n");
+    getOption("เลือกประเภทไฟฟ้า(1 - 15): ", &choice, 15);
+    switch(choice){
+        case 1:
+        return residentialNormalRate();
+            break;
+        case 2:
+        return residentialTOURate();
+            break;
+        case 3:
+        return smallBusinessNormalRate();
+            break;
+        case 4:
+        return smallBusinessTOURate();
+            break;
+        case 5:
+        return mediumBusiness();
+            break;
+        case 6:
+        //return mediumBusinessTOURate();
+            break;
+        case 7:
+        //return largeBusinessTODRate();
+            break;
+        case 8:
+        //return largeBusinessTOURate();
+            break;
+        case 9:
+        //return specialBusinessNormalRate();
+            break;
+        case 10:
+        //return specialBusinessTOURate();
+            break;
+        case 11:
+        return nonProfitOrganization();
+            break;
+        case 12:
+        //return nonProfitOrganizationTOURate();
+            break;
+        case 13:
+        return agricultureWaterPumping();
+            break;
+        case 14:
+        //return agricultureWaterPumpingTOURate();
+            break;
+        case 15:
+        //return temporaryElectricity();
+            break;
+    }
 }
-float PF(int kv, int kw){
-    float cost = kv - ((kw * 61.97 / 100) * 56.07);
-    return cost;
+void vat(float *cost, float sumFt){
+    *cost += ((*cost + sumFt) * 0.07);
+}
+float KVCharge(float kv, float kw){
+    return (56.07 * round(fmax(0, (kv - (kw * 0.6197)))));
 }
 float residentialNormalRate(){ //ประเภทที่ 1.1 บ้านอยู่อาศัย (อัตราปกติ)
     float sumFt, cost = 0;
@@ -261,12 +268,48 @@ float mediumBusiness(){
         break;
     }
     getInput("ความต้องการพลังงานไฟฟ้าสูงสุด (กิโลวัตต์): ", &kw);
+    getInput("ความต้องการพลังไฟฟ้ารีแอคตีฟ (กิโลวาร์): ", &kv);
+    getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
+    cost += kw_price * kw;
+    cost += unit_price * unit;
+    cost += service_charge;
+    float kvtmp = KVCharge(kv, kw);
+    cost += kvtmp;
+
+    float sumFt = unit * Ft;
+    vat(&cost, sumFt);
+    cost += sumFt;
+
+
+    return cost;
+}
+float mediumBusinessTOURate(){
+    int choice, kw, kv, unit;
+    float kw_price, unit_price, service_charge = 312.24, cost = 0;
+    printf("(1) แรงดัน 69 กินโลโวลต์ ขึ้นไป\n(2) แรงดัน 22 - 33 กิโลโวลต์\n(3) แรงดันต่ำกว่า 22 กิโลโวลต์\n");
+    getOption("เลือกประเภทแรงดันไฟฟฟ้า: ", &choice, 3);
+    
+    switch(choice){
+        case 1:
+        kw_price = 175.70;
+        unit_price = 3.1097;
+        break;
+        case 2:
+        kw_price = 196.26;
+        unit_price = 3.1471;
+        break;
+        case 3:
+        kw_price = 221.50;
+        unit_price = 3.1751;
+        break;
+    }
+    getInput("ความต้องการพลังงานไฟฟ้าสูงสุด (กิโลวัตต์): ", &kw);
     cost += kw_price * kw;
     getInput("ความต้องการพลังไฟฟ้ารีแอคตีฟ (กิโลวาร์): ", &kv);
     cost += unit_price * kv;
     getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
     cost += service_charge;
-    printf("PF is %f\n", PF(kv, kw));
+    cost += KVCharge(kv, kw);
     float sumFt = unit * Ft;
     vat(&cost, sumFt);
     cost += sumFt;
