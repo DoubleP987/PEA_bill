@@ -17,8 +17,10 @@ float smallBusinessTOURate(); //done
 float mediumBusiness(); //done
 
 float nonProfitOrganization(); //done
-float agricultureWaterPumping(); //done;
-float agricultureWaterPumpingTOURate(); //done;
+float nonProfitOrganizationTOURate();
+float agricultureWaterPumping(); //done
+float agricultureWaterPumpingTOURate(); //need to fix the demicals summary price. and ensure the priority is correct.
+float temporaryElectricity(); //done
 
 int main(){
     int unit;
@@ -102,16 +104,16 @@ float menu(){
         return nonProfitOrganization();
             break;
         case 12:
-        //return nonProfitOrganizationTOURate();
+        return nonProfitOrganizationTOURate();
             break;
         case 13:
         return agricultureWaterPumping();
             break;
         case 14:
-        //return agricultureWaterPumpingTOURate();
+        return agricultureWaterPumpingTOURate();
             break;
         case 15:
-        //return temporaryElectricity();
+        return temporaryElectricity();
             break;
     }
 }
@@ -345,6 +347,43 @@ float nonProfitOrganization(){
 
     return cost;
 }
+float nonProfitOrganizationTOURate(){ //hardy
+    int choice, NeedOnPeak, NeedOffPeak, NeedHoliday, Peak, OffPeak, Holiday;
+    float NeedRateOn, RateOn, RateOff, service_charge = 204.07;
+    printf("(1) แรงดัน 69 กินโลโวลต์ ขึ้นไป\n(2) แรงดัน 22 - 33 กิโลโวลต์\n(3) แรงดันต่ำกว่า 22 กิโลโวลต์\n");
+    getOption("เลือกประเภทแรงดันไฟฟฟ้า: ", &choice, 3);
+    getInput("ความต้องการพลังไฟฟ้าช่วง On Peak (กิโลวัตต์): ", &NeedOnPeak);
+    getInput("ความต้องการพลังไฟฟ้าช่วง Off Peak (กิโลวัตต์): ", &NeedOffPeak);
+    getInput("ความต้องการพลังไฟฟ้าช่วง Holiday (กิโลวัตต์): ", &NeedHoliday);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง On Peak (หน่วย): ", &Peak);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Off Peak (หน่วย): ", &OffPeak);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Holiday (หน่วย): ", &Holiday);
+
+    switch(choice){
+        case 1:
+        NeedRateOn = 74.14;
+        RateOn = 4.1025;
+        RateOff = 2.5849;
+        break;
+        case 2:
+        NeedRateOn = 132.93;
+        RateOn = 4.1839;
+        RateOff = 2.6037;
+        break;
+        case 3:
+        NeedRateOn = 210.00;
+        RateOn = 4.3297;
+        RateOff = 2.6369;
+        break;
+    }
+    float NeedPower = round(NeedOnPeak * NeedRateOn);
+    float Power = round((Peak * RateOn) + ((OffPeak + Holiday) * RateOff));
+    float Base = round(NeedPower + Power + service_charge);
+    float FT = round((Peak + OffPeak + Holiday) * Ft);
+    float VAT = round((Base + FT) * 0.07);
+    float Summary = Base + FT + VAT;
+    return Summary;
+}
 float agricultureWaterPumping(){
     int unit;
     getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
@@ -352,6 +391,49 @@ float agricultureWaterPumping(){
     if(tmp > 100) cost += (tmp - 100) *  3.2405, tmp = 100;
     cost += tmp * 2.0889;
     cost += 115.16;
+    float sumFt = unit * Ft;
+    vat(&cost, sumFt);
+    cost += sumFt;
+
+    return cost;
+}
+float agricultureWaterPumpingTOURate(){
+    int choice, NeedOnPeak, NeedOffPeak, NeedHoliday, Peak, OffPeak, Holiday;
+    float NeedRateOn, RateOn, RateOff, service_charge = 204.07;
+    printf("(1) แรงดัน 22 - 33 กิโลโวลต์\n(2) แรงดันต่ำกว่า 22 กิโลโวลต์\n");
+    getOption("เลือกประเภทแรงดันไฟฟฟ้า: ", &choice, 2);
+    getInput("ความต้องการพลังไฟฟ้าช่วง On Peak (กิโลวัตต์): ", &NeedOnPeak);
+    getInput("ความต้องการพลังไฟฟ้าช่วง Off Peak (กิโลวัตต์): ", &NeedOffPeak);
+    getInput("ความต้องการพลังไฟฟ้าช่วง Holiday (กิโลวัตต์): ", &NeedHoliday);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง On Peak (หน่วย): ", &Peak);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Off Peak (หน่วย): ", &OffPeak);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Holiday (หน่วย): ", &Holiday);
+
+    switch(choice){
+        case 1:
+        NeedRateOn = 132.93;
+        RateOn = 4.1893;
+        RateOff = 2.6037;
+        break;
+        case 2:
+        NeedRateOn = 210;
+        RateOn =  4.3297;
+        RateOff = 2.6369;
+        break;
+    }
+    float NeedPower = round(NeedOnPeak * NeedRateOn);
+    float Power = round((Peak * RateOn) + ((OffPeak + Holiday) * RateOff));
+    float Base = round(NeedPower + Power + service_charge);
+    float FT = round((Peak + OffPeak + Holiday) * Ft);
+    float VAT = round((Base + FT) * 0.07);
+    float Summary = Base + FT + VAT;
+    return Summary;
+}
+float temporaryElectricity(){
+    int unit;
+    float cost = 0;
+    getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
+    cost += unit * 6.8025;
     float sumFt = unit * Ft;
     vat(&cost, sumFt);
     cost += sumFt;
