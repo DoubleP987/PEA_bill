@@ -398,6 +398,44 @@ void nonProfitOrganization(){ //ประเภทที่ 6.1 องค์ก�
     printf("\n\tรวมเงินค่าไฟฟ้า %36.2f บาท\n", cost);
 
 }
+void agricultureWaterPumping(){ // ประเภทที่ 7.1 สูบน้ำเพื่อการเกษตร
+    double ft_charge, service_charge, vat_charge, cost, base = 0, unit, unit_tmp, base_tariff;
+    getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
+    service_charge = 115.16;
+    unit_tmp = unit;
+    if(unit_tmp > 100) base += (unit_tmp - 100) *  3.2405, unit_tmp = 100;
+    base += unit_tmp * 2.0889;
+    ft_charge = unit * Ft;
+    base_tariff = base + service_charge;
+    vat_charge = (base_tariff + ft_charge) * VAT;
+    cost = vat_charge + ft_charge + base_tariff;
+    printf("\t7.1 อัตราปกติ (Normal Rate)\n\n");
+    printf("\t\tค่าบริการ %33.2f บาท\n", service_charge);
+    printf("\t\tรวมค่าไฟฟ้าฐาน %28.2f บาท\n", base);
+    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
+    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %17.2f บาท\n", ft_charge);
+    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
+    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %13.2f บาท\n", vat_charge);
+    printf("\n\tรวมเงินค่าไฟฟ้า %36.2f บาท\n", cost);
+}
+void temporaryElectricity(){ //ประเภทที่ 8 ไฟฟ้าชั่วคราว
+    double service_charge, ft_charge, vat_charge, base, base_tariff, unit, cost;
+    getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
+    service_charge = 0;
+    base = unit * 6.8025;
+    ft_charge = unit * Ft;
+    vat_charge = (base + ft_charge) * VAT;
+    cost = base + ft_charge + vat_charge;
+
+    printf("\t7.1 อัตราปกติ (Normal Rate)\n\n");
+    printf("\t\tค่าบริการ %33.2f บาท\n", service_charge);
+    printf("\t\tรวมค่าไฟฟ้าฐาน %28.2f บาท\n", base);
+    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
+    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %17.2f บาท\n", ft_charge);
+    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
+    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %13.2f บาท\n", vat_charge);
+    printf("\n\tรวมเงินค่าไฟฟ้า %36.2f บาท\n", cost);
+}
 void menu(){
     int choice;
     printf("(1) 1.1 บ้านอยู่อาศัย (อัตราปกติ)\n"); 
@@ -454,14 +492,16 @@ void menu(){
         // nonProfitOrganizationTOURate();
             // break;
         // case 13:
-        // agricultureWaterPumping();
             // break;
+        case 13:
+        agricultureWaterPumping();
+            break;
         // case 14:
         // agricultureWaterPumpingTOURate();
             // break;
-        // case 15:
-        // temporaryElectricity();
-            // break;
+        case 15:
+        temporaryElectricity();
+            break;
     }
 }
 int main(){
