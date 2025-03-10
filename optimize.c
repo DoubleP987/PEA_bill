@@ -6,9 +6,20 @@ const double Ft = 0.3672;
 const double VAT = 0.07;
 
 void getInput(char *msg, double *value){
-    while(printf("%s", msg), scanf("%lf", value) != 1){
-        printf("ข้อมูลไม่ถูกต้อง\n");
-        while(getchar() != '\n');
+    while(1){
+        char ch;
+        printf("%s", msg);
+        if(scanf("%lf", value) == 1){
+            if(scanf("%c", &ch) == 1 && ch != '\n'){
+                printf("ข้อมูลไม่ถูกต้อง\n");
+                while(getchar() != '\n');
+            }else{
+                break;
+            }
+        }else{
+            printf("ข้อมูลไม่ถูกต้อง\n");
+            while(getchar() != '\n');
+        }
     }
 }
 void getOption(char *msg, int *choice, int option){
@@ -231,7 +242,7 @@ void mediumBusiness(){ //ประเภทที่ 3.1 กิจการข�
     printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %13.2f บาท\n", vat_charge);
     printf("\n\tรวมเงินค่าไฟฟ้า %36.2f บาท\n", cost);
 }
-void mediumBusinessTOURate(){ //ประเภทที่ 3.2 กิจการขนาดกลาง (อัตรา TOU) //แก้การหาค่าไฟฟ้าฐาน
+void mediumBusinessTOURate(){ //ประเภทที่ 3.2 กิจการขนาดกลาง (อัตรา TOU)
     double NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, power, Kilovar, kv_charge, unit, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
     int choice;
 
@@ -255,21 +266,21 @@ void mediumBusinessTOURate(){ //ประเภทที่ 3.2 กิจกา�
         rateOff = 2.6369;
         break;
     }
-    getInput("ความต้องการพลังงานไฟฟ้าสูงสุด (กิโลวัตต์): ", &NeedOnHighestRate);
-    getInput("ความต้องการพลังไฟฟ้ารีแอคตีฟ (กิโลวาร์): ", &NeedReactive);
-    getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
-    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง On Peak (หน่วย): ", &NeedOnPeak);
-    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Off Peak (หน่วย): ", &NeedOffPeak);
-    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Holiday (หน่วย): ", &NeedHoliday);
+    getInput("ความต้องการพลังไฟฟ้าช่วง On Peak (กิโลวัตต์): ", &NeedOnPeak);
+    getInput("ความต้องการพลังไฟฟ้าช่วง Off Peak (กิโลวาร์): ", &NeedOffPeak);
+    getInput("ความต้องการพลังไฟฟ้าช่วง Holiday (หน่วย): ", &NeedHoliday);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง On Peak (หน่วย): ", &onPeak);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Off Peak (หน่วย): ", &offPeak);
+    getInput("ปริมาณการใช้พลังงานไฟฟ้าช่วง Holiday (หน่วย): ", &holiday);
     getInput("ความต้องการพลังไฟฟ้ารีแอคตีฟ (กิโลวาร์): ", &NeedReactive);
     service_charge = 312.24;
-    power = NeedOnHighestRate * HighestRate;
-    unit_price = (NeedOnPeak * rateOn) + ((NeedOffPeak + NeedHoliday) * rateOff);
+    power = NeedOnPeak * HighestRate;
+    unit_price = (onPeak * rateOn) + ((offPeak + holiday) * rateOff); //
     Kilovar = KVCharge(NeedReactive, (fmax(NeedOnPeak, fmax(NeedOffPeak, NeedHoliday))));
     kv_charge = Kilovar * 56.07;
     base = power + unit_price + service_charge + kv_charge;
     base_tariff = unit_price + service_charge + power + kv_charge;
-    ft_charge = (NeedOnPeak + NeedOffPeak + NeedHoliday) * Ft;
+    ft_charge = (onPeak + offPeak + holiday) * Ft;
     vat_charge = (base_tariff + ft_charge) * VAT;
     cost = base_tariff + ft_charge + vat_charge; 
 
@@ -296,7 +307,7 @@ void largeBusinessTODRate(){ //ประเภทที่ 4.1 กิจกา�
     getInput("ความต้องการพลังไฟฟ้าช่วง On Peak (กิโลวัตต์): ", &NeedOnPeak);
     getInput("ความต้องการพลังไฟฟ้าช่วง Partial Peak (กิโลวัตต์): ", &NeedPartialPeak);
     getInput("ความต้องการพลังไฟฟ้าช่วง Off Peak (กิโลวัตต์): ", &NeedOffPeak);
-    getInput("ความต้องการพลังไฟฟ้ารีแอคตีฟ (กิโลวาร์): ", &NeedPartialPeak);
+    getInput("ความต้องการพลังไฟฟ้ารีแอคตีฟ (กิโลวาร์): ", &NeedReactive);
     getInput("ผู้ใช้ไฟฟ้ามีปริมาณการใช้พลังงานไฟฟ้า (หน่วย): ", &unit);
 
     switch(choice){
@@ -320,7 +331,10 @@ void largeBusinessTODRate(){ //ประเภทที่ 4.1 กิจกา�
     power = (NeedOnPeak * NeedRateOn) + ((NeedPartialPeak - NeedOnPeak) * NeedRatePartial);
     unit_price = unit * rateOn;
     Kilovar = KVCharge(NeedReactive, fmax(NeedOnPeak, fmax(NeedPartialPeak, NeedOffPeak)));
+    // Kilovar = round(fmax(0, (NeedReactive - (fmax(NeedOnPeak, fmax(NeedPartialPeak, NeedOffPeak) * 0.6197)))));
+    printf("kv = %f\n", Kilovar);
     kv_charge = Kilovar * 56.07;
+    printf("kv charge = %f\n", kv_charge);
     base_tariff = power + unit_price + kv_charge + service_charge;
     ft_charge = unit * Ft;
     vat_charge = (base_tariff + ft_charge) * VAT;
