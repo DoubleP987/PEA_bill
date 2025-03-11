@@ -1,10 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <local.h>
 
+setlocal(LC_NUMERIC, " "); //setlocal for comma in the number (e.g. printf("%'d", 10000)) = 10,000
+
+//initialize Ft value and VAT value
 const double Ft = 0.3672;
 const double VAT = 0.07;
 
+// getInput use for get input from user with error handling.
 void getInput(char *msg, double *value){
     while(1){
         char ch;
@@ -22,12 +27,14 @@ void getInput(char *msg, double *value){
         }
     }
 }
+// getOption use for get input from user with error handling when get input for switch case.
 void getOption(char *msg, int *choice, int option){
     while(printf("%s", msg), scanf("%d", choice) != 1 || *choice < 1 || *choice > option){
         printf("ตัวเลือกไม่ถูกต้อง\n");
         while(getchar() != '\n');
     }
 }
+//KVCharge function use for calculate PowerFactor value.
 double KVCharge(double kv, double kw){
     return round(fmax(0, (kv - (kw * 0.6197))));
 }
