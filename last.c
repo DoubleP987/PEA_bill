@@ -99,6 +99,18 @@ double getFt(int isResidential){ //select month and year to get Ft value.
         }
     }
 }
+void displayBill(double base, double service_charge, double base_tariff, double ft_charge, double vat_charge, double cost){
+    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n"
+    "\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n"
+    "\t\tค่าบริการ %'33.2f บาท\n"
+    "\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n"
+    "\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n"
+    "\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n"
+    "\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n"
+    "\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n"
+    "\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n",
+    base, service_charge, base_tariff, ft_charge, vat_charge, cost);
+}
 void residentialNormalRate(){ //ประเภทที่ 1.1 บ้านอยู่อาศัย (อัตราปกติ)
     double Ft, unit, unit_tmp, base_tariff, vat_charge, ft_charge, service_charge, cost, base = 0;
     int choice;
@@ -135,15 +147,7 @@ void residentialNormalRate(){ //ประเภทที่ 1.1 บ้านอ�
     system("cls");
     if(choice == 1)printf("1.1.1 อัตราปกติ ปริมาณการใช้พลังงานไฟฟ้าไม่เกิน 150 หน่วยต่อเดือน\n\n");
     if(choice == 2)printf("1.1.2 อัตราปกติ ปริมาณการใช้พลังงานไฟฟ้าเกินกว่า 150 หน่วยต่อเดือน\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void residentialTOURate(){ //ประเภทที่ 1.2 บ้านอยู่อาศัย (อัตรา TOU)
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -181,15 +185,7 @@ void residentialTOURate(){ //ประเภทที่ 1.2 บ้านอย�
 
     system("cls");
     printf("1.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void smallBusinessNormalRate(){ //ประเภทที่ 2.1 กิจการขนาดเล็ก (อัตราปกติ)
     double Ft, unit, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -221,15 +217,7 @@ void smallBusinessNormalRate(){ //ประเภทที่ 2.1 กิจก�
 
     system("cls");
     printf("2.1 อัตราปกติ (Normal Rate)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void smallBusinessTOURate(){ //ประเภทที่ 2.2 กิจการขนาดเล็ก (อัตรา TOU)
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -266,15 +254,7 @@ void smallBusinessTOURate(){ //ประเภทที่ 2.2 กิจกา�
 
     system("cls");
     printf("2.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void mediumBusiness(){ //ประเภทที่ 3.1 กิจการขนาดกลาง
     double Ft, rate, power, Kilovar, kv_charge, unit, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -373,15 +353,7 @@ void mediumBusinessTOURate(){ //ประเภทที่ 3.2 กิจกา�
 
     system("cls");
     printf("3.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void largeBusinessTODRate(){ //ประเภทที่ 4.1 กิจการขนาดใหญ่ (อัตรา TOD)
     double Ft, Kilovar, power, unit_price, kv_charge, base_tariff, vat_charge, ft_charge, NeedOnPeak, unit, NeedOffPeak, NeedPartialPeak, NeedReactive, base = 0, cost, NeedRateOn, NeedRateOff, NeedRatePartial, rateOn, rateOff, service_charge;
@@ -425,15 +397,7 @@ void largeBusinessTODRate(){ //ประเภทที่ 4.1 กิจกา�
 
     system("cls");
     printf("4.1 อัตราตามช่วงเวลา (Time of Day Rate : TOD Tariff)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void largeBusinessTOURate(){ //4.2 กิจการขนาดใหญ่ (อัตรา TOU)
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, power, Kilovar, kv_charge, unit, unit_tmp, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -481,15 +445,7 @@ void largeBusinessTOURate(){ //4.2 กิจการขนาดใหญ่ (�
     system("cls");
 
     printf("4.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void nonProfitOrganization(){ //ประเภทที่ 6.1 องค์การที่ไม่แสวงหากำไร
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, power, Kilovar, kv_charge, unit, unit_tmp, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -522,15 +478,7 @@ void nonProfitOrganization(){ //ประเภทที่ 6.1 องค์ก�
 
     system("cls");
     printf("6.1 อัตราปกติ (Normal Rate)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 
 }
 void agricultureWaterPumping(){ //ประเภทที่ 7.1 สูบน้ำเพื่อการเกษตร
@@ -548,15 +496,7 @@ void agricultureWaterPumping(){ //ประเภทที่ 7.1 สูบน�
 
     system("cls");
     printf("\t7.1 อัตราปกติ (Normal Rate)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void temporaryElectricity(){ //ประเภทที่ 8 ไฟฟ้าชั่วคราว
     double Ft, service_charge, ft_charge, vat_charge, base, base_tariff, unit, cost;
@@ -571,15 +511,7 @@ void temporaryElectricity(){ //ประเภทที่ 8 ไฟฟ้าช�
 
     system("cls");
     printf("8 อัตราปกติ (Normal Rate)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void nonProfitOrganizationTOURate(){ //6.2 องค์กรที่ไม่แสวงหากำไร (อัตรา TOU)
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, power, Kilovar, kv_charge, unit, unit_tmp, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -627,15 +559,7 @@ void nonProfitOrganizationTOURate(){ //6.2 องค์กรที่ไม่�
     system("cls");
 
     printf("6.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n"); 
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void specialBusinessNormalRate(){ //5.1 กิจการเฉพาะอย่าง (อัตราปกติ)
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, power, Kilovar, kv_charge, unit, unit_tmp, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -676,15 +600,7 @@ void specialBusinessNormalRate(){ //5.1 กิจการเฉพาะอย�
 
     system("cls");
     printf("5.1 อัตราปกติ (Normal Rate)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void specialBusinessTOURate(){ //5.2 กิจการเฉพาะอย่าง (อัตรา TOU)
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, power, Kilovar, kv_charge, unit, unit_tmp, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -731,15 +647,7 @@ void specialBusinessTOURate(){ //5.2 กิจการเฉพาะอย่�
 
     system("cls");
     printf("5.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
 void agricultureWaterPumpingTOURate(){ //7.2 สูบน้ำเพื่อการเกษตร (อัตรา TOU)
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, power, Kilovar, kv_charge, unit, unit_tmp, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -777,15 +685,7 @@ void agricultureWaterPumpingTOURate(){ //7.2 สูบน้ำเพื่อ�
 
     system("cls");
     printf("7.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
-    printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n");
-    printf("\t\tค่าพลังงานไฟฟ้า %'28.2f บาท\n", base);
-    printf("\t\tค่าบริการ %'33.2f บาท\n", service_charge);
-    printf("\t\tรวมค่าไฟฟ้าฐาน %'28.2f บาท\n", base_tariff);
-    printf("\n\tส่วนที่ 2 ค่าไฟฟ้าแปร (Ft)\n\n");
-    printf("\t\tจำนวนพลังงานไฟฟ้า x ค่า Ft %'17.2f บาท\n", ft_charge);
-    printf("\n\tส่วนที่ 3 ค่าภาษีมูลค่าเพิ่ม 7%%\n\n");
-    printf("\t\t(ค่าไฟฟ้าฐาน + ค่า Ft) x 7/100 %'13.2f บาท\n", vat_charge);
-    printf("\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", cost);
+    displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 
 }
 void menu(){
