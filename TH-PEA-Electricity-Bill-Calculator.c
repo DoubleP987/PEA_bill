@@ -23,7 +23,6 @@ void getInput(char *msg, double *value){
         }
     }
 }
-
 // ฟังก์ชันรับตัวเลือก (เช่น 1-15) แล้วเช็กว่าอยู่ในช่วงที่กำหนดไหม
 void getOption(char *msg, int *parameter, int option){
     char ch;
@@ -53,7 +52,6 @@ double max(double a, double b){
 double KVCharge(double kv, double kw){
     return round(max(0, (kv - (kw * 0.6197)))); // คำนวณส่วนเกินของ kv เทียบกับ kw * 0.6197 ถ้าเกินได้เลข ปัดเป็นเต็ม ไม่เกินได้ 0
 }
-
 // ฟังก์ชันเลือกค่า Ft ตามเดือนและปี
 double getFt(int isResidential){ // isResidential = 1 ถ้าเป็นบ้าน, 0 ถ้าไม่ใช่
     int month, year;
@@ -108,7 +106,6 @@ double getFt(int isResidential){ // isResidential = 1 ถ้าเป็นบ�
     }
     return 0; // ไม่ควรถึงบรรทัดนี้ แต่ใส่ไว้เผื่อกรณีผิดพลาด
 }
-
 // ฟังก์ชันแสดงบิลค่าไฟแบบเป็นระเบียบ
 void displayBill(double base, double service_charge, double base_tariff, double ft_charge, double vat_charge, double cost){
     printf("\tส่วนที่ 1 ค่าไฟฟ้าฐาน\n\n"
@@ -122,7 +119,6 @@ void displayBill(double base, double service_charge, double base_tariff, double 
     "\n\tรวมเงินค่าไฟฟ้า %'36.2f บาท\n", // รวมทุกอย่าง
     base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟบ้านแบบปกติ (1.1)
 void residentialNormalRate(){
     double Ft, unit, unit_tmp, base_tariff, vat_charge, ft_charge, service_charge, cost, base = 0;
@@ -160,7 +156,6 @@ void residentialNormalRate(){
     if(choice == 2) printf("1.1.2 อัตราปกติ ปริมาณการใช้พลังงานไฟฟ้าเกินกว่า 150 หน่วยต่อเดือน\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟบ้านแบบ TOU (1.2) แยกตามช่วงเวลา
 void residentialTOURate(){
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -197,7 +192,6 @@ void residentialTOURate(){
     printf("1.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟกิจการขนาดเล็กแบบปกติ (2.1)
 void smallBusinessNormalRate(){
     double Ft, unit, cost, base_tariff, ft_charge, vat_charge, service_charge, base = 0;
@@ -228,7 +222,6 @@ void smallBusinessNormalRate(){
     printf("2.1 อัตราปกติ (Normal Rate)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟกิจการขนาดเล็กแบบ TOU (2.2)
 void smallBusinessTOURate(){
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -265,7 +258,6 @@ void smallBusinessTOURate(){
     printf("2.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟกิจการขนาดกลางแบบปกติ (3.1) มี Power Factor
 void mediumBusiness(){
     double Ft, rate, power, Kilovar, kv_charge, unit, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge;
@@ -318,7 +310,6 @@ void mediumBusiness(){
         power, unit_price, Kilovar, kv_charge, service_charge, base_tariff, 
         ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟกิจการขนาดกลางแบบ TOU (3.2) มีทั้ง demand และหน่วยแยกช่วง
 void mediumBusinessTOURate(){
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, power, Kilovar, kv_charge, unit_price, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -365,7 +356,6 @@ void mediumBusinessTOURate(){
     printf("3.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟกิจการขนาดใหญ่แบบ TOD (4.1)
 void largeBusinessTODRate(){
     double Ft, Kilovar, unit_price, kv_charge, base_tariff, vat_charge, ft_charge, NeedOnPeak, unit, NeedOffPeak, NeedPartialPeak, NeedReactive, base = 0, cost, NeedRateOn, NeedRatePartial, rateOn, service_charge;
@@ -409,7 +399,6 @@ void largeBusinessTODRate(){
     printf("4.1 อัตราตามช่วงเวลา (Time of Day Rate : TOD Tariff)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟกิจการขนาดใหญ่แบบ TOU (4.2)
 void largeBusinessTOURate(){
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, Kilovar, kv_charge,  unit_price, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -455,7 +444,6 @@ void largeBusinessTOURate(){
     printf("4.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟองค์กรไม่แสวงหากำไรแบบปกติ (6.1)
 void nonProfitOrganization(){
     double Ft, unit, unit_tmp, cost, base_tariff, ft_charge, vat_charge, service_charge, base = 0;
@@ -489,7 +477,6 @@ void nonProfitOrganization(){
     printf("6.1 อัตราปกติ (Normal Rate)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟสูบน้ำเพื่อเกษตรแบบปกติ (7.1)
 void agricultureWaterPumping(){
     double Ft, ft_charge, service_charge, vat_charge, cost, base = 0, unit, unit_tmp, base_tariff;
@@ -507,7 +494,6 @@ void agricultureWaterPumping(){
     printf("\t7.1 อัตราปกติ (Normal Rate)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟฟ้าชั่วคราว (8)
 void temporaryElectricity(){
     double Ft, service_charge, ft_charge, vat_charge, base, base_tariff, unit, cost;
@@ -523,7 +509,6 @@ void temporaryElectricity(){
     printf("8 อัตราปกติ (Normal Rate)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟองค์กรไม่แสวงหากำไรแบบ TOU (6.2)
 void nonProfitOrganizationTOURate(){
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, Kilovar, kv_charge, unit_price, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -569,7 +554,6 @@ void nonProfitOrganizationTOURate(){
     printf("6.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n"); 
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟกิจการเฉพาะอย่างแบบปกติ (5.1)
 void specialBusinessNormalRate(){
     double Ft, rateOn, Kilovar, kv_charge, unit, unit_price, NeedOnHighestRate, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, base = 0;
@@ -608,7 +592,6 @@ void specialBusinessNormalRate(){
     printf("5.1 อัตราปกติ (Normal Rate)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟกิจการเฉพาะอย่างแบบ TOU (5.2)
 void specialBusinessTOURate(){
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, Kilovar, kv_charge, unit_price, HighestRate, NeedReactive, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -654,7 +637,6 @@ void specialBusinessTOURate(){
     printf("5.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // คำนวณค่าไฟสูบน้ำเพื่อเกษตรแบบ TOU (7.2)
 void agricultureWaterPumpingTOURate(){
     double Ft, NeedOnPeak, NeedOffPeak, NeedHoliday, rateOn, rateOff, HighestRate, cost, base_tariff, ft_charge, vat_charge, service_charge, onPeak, offPeak, holiday, base = 0;
@@ -692,7 +674,6 @@ void agricultureWaterPumpingTOURate(){
     printf("7.2 อัตราตามช่วงเวลาของการใช้ (Time of Use Tariff : TOU Tariff)\n\n");
     displayBill(base, service_charge, base_tariff, ft_charge, vat_charge, cost);
 }
-
 // เมนูหลักให้เลือกประเภทไฟฟ้า
 void menu(){
     int choice;
@@ -732,7 +713,6 @@ void menu(){
         case 15: temporaryElectricity(); break;
     }
 }
-
 // ฟังก์ชันหลัก วนลูปเมนู
 int main(){
     setlocale(LC_NUMERIC, ""); // ตั้งค่าให้ตัวเลขมี comma (เช่น 10,000)
