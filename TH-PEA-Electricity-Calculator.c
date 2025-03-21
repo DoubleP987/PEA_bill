@@ -42,10 +42,16 @@ void getOption(char *msg, int *parameter, int option){
         }
     }
 }
-
+double max(double a, double b){
+    if (a > b) {
+        return a;
+    } else {
+        return b; 
+    }
+}
 // ฟังก์ชันคำนวณหน่วย Power Factor ถ้าเกินเกณฑ์ต้องจ่ายเพิ่ม
 double KVCharge(double kv, double kw){
-    return round(fmax(0, (kv - (kw * 0.6197)))); // คำนวณส่วนเกินของ kv เทียบกับ kw * 0.6197 ถ้าเกินได้เลข ปัดเป็นเต็ม ไม่เกินได้ 0
+    return round(max(0, (kv - (kw * 0.6197)))); // คำนวณส่วนเกินของ kv เทียบกับ kw * 0.6197 ถ้าเกินได้เลข ปัดเป็นเต็ม ไม่เกินได้ 0
 }
 
 // ฟังก์ชันเลือกค่า Ft ตามเดือนและปี
@@ -348,7 +354,7 @@ void mediumBusinessTOURate(){
     service_charge = 312.24;
     power = NeedOnPeak * HighestRate; // ค่า demand คิดจาก peak เท่านั้น
     unit_price = (onPeak * rateOn) + ((offPeak + holiday) * rateOff); // ค่าหน่วยแยกตามช่วง
-    Kilovar = KVCharge(NeedReactive, (fmax(NeedOnPeak, fmax(NeedOffPeak, NeedHoliday)))); // Power Factor ใช้ demand สูงสุด
+    Kilovar = KVCharge(NeedReactive, (max(NeedOnPeak, max(NeedOffPeak, NeedHoliday)))); // Power Factor ใช้ demand สูงสุด
     kv_charge = Kilovar * 56.07;
     base = power + unit_price + service_charge + kv_charge; // รวมทุกอย่างในค่าไฟฐาน
     base_tariff = unit_price + service_charge + power + kv_charge;
@@ -393,7 +399,7 @@ void largeBusinessTODRate(){
     service_charge = 312.24;
     base = (NeedOnPeak * NeedRateOn) + ((NeedPartialPeak - NeedOnPeak) * NeedRatePartial); // ค่า demand คิดจาก peak และ partial
     unit_price = unit * rateOn; // ค่าหน่วยคิดอัตราเดียว
-    Kilovar = KVCharge(NeedReactive, fmax(NeedOnPeak, fmax(NeedPartialPeak, NeedOffPeak))); // Power Factor ใช้ demand สูงสุด
+    Kilovar = KVCharge(NeedReactive, max(NeedOnPeak, max(NeedPartialPeak, NeedOffPeak))); // Power Factor ใช้ demand สูงสุด
     kv_charge = Kilovar * 56.07;
     base_tariff = base + unit_price + kv_charge + service_charge;
     ft_charge = unit * Ft;
@@ -439,7 +445,7 @@ void largeBusinessTOURate(){
     service_charge = 312.24;
     base = NeedOnPeak * HighestRate; // ค่า demand คิดจาก peak
     unit_price = (onPeak * rateOn) + ((offPeak + holiday) * rateOff); // ค่าหน่วยแยกตามช่วง
-    Kilovar = KVCharge(NeedReactive, fmax(NeedOnPeak, fmax(NeedOffPeak, NeedHoliday)));
+    Kilovar = KVCharge(NeedReactive, max(NeedOnPeak, max(NeedOffPeak, NeedHoliday)));
     kv_charge = Kilovar * 56.07;
     base_tariff = base + service_charge + unit_price + kv_charge;
     ft_charge = (onPeak + offPeak + holiday) * Ft;
@@ -553,7 +559,7 @@ void nonProfitOrganizationTOURate(){
     service_charge = 312.24;
     base = NeedOnPeak * HighestRate;
     unit_price = (onPeak * rateOn) + ((offPeak + holiday) * rateOff);
-    Kilovar = KVCharge(NeedReactive, fmax(NeedOnPeak, NeedOffPeak)); // Power Factor ใช้ demand สูงสุดจาก peak หรือ off-peak
+    Kilovar = KVCharge(NeedReactive, max(NeedOnPeak, NeedOffPeak)); // Power Factor ใช้ demand สูงสุดจาก peak หรือ off-peak
     kv_charge = Kilovar * 56.07;
     base_tariff = base + service_charge + unit_price + kv_charge;
     ft_charge = (onPeak + offPeak + holiday) * Ft;
@@ -638,7 +644,7 @@ void specialBusinessTOURate(){
     service_charge = 312.24;
     base = NeedOnPeak * HighestRate;
     unit_price = (onPeak * rateOn) + ((offPeak + holiday) * rateOff);
-    Kilovar = KVCharge(NeedReactive, fmax(NeedOnPeak, fmax(NeedOffPeak, NeedHoliday)));
+    Kilovar = KVCharge(NeedReactive, max(NeedOnPeak, max(NeedOffPeak, NeedHoliday)));
     kv_charge = Kilovar * 56.07;
     base_tariff = base + service_charge + unit_price + kv_charge;
     ft_charge = (onPeak + offPeak + holiday) * Ft;
