@@ -42,11 +42,13 @@ void getOption(char *msg, int *parameter, int option){
         }
     }
 }
-double max(double a, double b){
-    if (a > b) {
-        return a;
+// Function to return the greater of two double values
+double max(double a, double b) { 
+    // Compare the two values
+    if (a > b) { 
+        return a; // If 'a' is greater, return 'a'
     } else {
-        return b; 
+        return b; // Otherwise, return 'b'
     }
 }
 // Function to calculate Power Factor charge if it exceeds the threshold
