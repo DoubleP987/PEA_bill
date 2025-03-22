@@ -98,16 +98,8 @@ Provincial Electricity Authority (PEA) for providing the tariff data.
 University instructors and peers for guidance and feedback during development.
 Repository Link: https://github.com/ppgodknow/PEA_bill
 
+---
+
 Developed by ppgodknow as a university mini-project.
 
 
----
-
-### How to Use
-1. Copy the entire block above (from ```markdown to ```).
-2. Go to your GitHub repository: [https://github.com/ppgodknow/PEA_bill](https://github.com/ppgodknow/PEA_bill).
-3. Click on `README.md` (or create it if it doesn’t exist by clicking "Add a README").
-4. Paste the content into the editor.
-5. Click "Commit changes" to save.
-
-This README is polished, professional, and ready to impress your instructors or anyone visiting your repository! Let me know if you need any tweaks.
