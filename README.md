@@ -40,7 +40,7 @@ The calculator takes user inputs such as electricity usage (in units), voltage t
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ppgodknow/PEA_bill.git
+   git clone https://github.com/DoubleP987/PEA_bill.git
 2. Navigate to the project directory:
    ```bash
    cd PEA_bill
@@ -96,10 +96,10 @@ This project is licensed under the MIT License. See the LICENSE file for details
 Acknowledgments
 Provincial Electricity Authority (PEA) for providing the tariff data.
 University instructors and peers for guidance and feedback during development.
-Repository Link: https://github.com/ppgodknow/PEA_bill
+Repository Link: https://github.com/DoubleP987/PEA_bill
 
 ---
 
-Developed by ppgodknow as a university mini-project.
+Developed by DoubleP987 as a university mini-project.
 
 
