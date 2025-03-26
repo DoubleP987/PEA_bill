@@ -52,8 +52,11 @@ double max(double a, double b) {
     }
 }
 // Function to calculate Power Factor charge if it exceeds the threshold
-double KVCharge(double kv, double kw){
-    return round(max(0, (kv - (kw * 0.6197)))); // Calculate excess of kv compared to kw * 0.6197, round to nearest integer, return 0 if negative
+double KVCharge(double NeedReactive, double HighestRate){
+    return round(max(0, (NeedReactive - (HighestRate * 0.6197)))); 
+    // Calculates the excess NeedReactive compared to HighestRate * 0.6197.
+    // Rounds the result to the nearest integer.
+    // Returns 0 if the result is negative.
 }
 
 // Function to select Ft rate based on month and year
