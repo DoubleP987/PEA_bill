@@ -33,32 +33,45 @@ The calculator takes user inputs such as electricity usage (in units), voltage t
 
 ## Prerequisites
 
-- **C Compiler**: GCC or any compatible C compiler (e.g., MinGW for Windows, Clang for macOS/Linux).
+- **C Compiler**: GCC or any compatible C compiler (e.g., MinGW-w64 for Windows, Clang for macOS/Linux).
 - **Operating System**: Works on Windows, Linux, or macOS with a terminal/console.
+- **Windows Users**:
+  - Must use **MinGW-w64** (MSYS2 recommended) for compilation.
+  - Install MinGW-w64 via MSYS2:  
+    ```sh
+    pacman -S mingw-w64-x86_64-gcc
+    ```
 
 ## Installation
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/DoubleP987/PEA_bill.git
+   ```
 2. Navigate to the project directory:
    ```bash
    cd PEA_bill
+   ```
 3. Compile the code:
    ```bash
    gcc -o PEA_bill main.c -lm
+   ```
 4. Run the program:
    ```bash
    ./PEA_bill
-   
-Usage
-Launch the program, and the main menu will display the available electricity tariff types (1–15).
-Select a tariff type by entering a number between 1 and 15.
-Follow the prompts to input required details (e.g., electricity usage in units, voltage type, month/year).
-The program will calculate and display a detailed electricity bill.
-Press Enter to return to the menu or Ctrl+C to exit.
+   ```
 
-Electricity Types
+## Usage
+
+1. Launch the program, and the main menu will display the available electricity tariff types (1–15).
+2. Select a tariff type by entering a number between 1 and 15.
+3. Follow the prompts to input required details (e.g., electricity usage in units, voltage type, month/year).
+4. The program will calculate and display a detailed electricity bill.
+5. Press Enter to return to the menu or Ctrl+C to exit.
+
+## Electricity Types
+
+```
 (1) 1.1 Residential (Normal Rate)
 (2) 1.2 Residential (TOU Rate)
 ...
@@ -67,7 +80,9 @@ Select electricity type: 1
 User's electricity usage (units): 120
 Select month: 3
 Year: 2568
+```
 
+```
 1.1.1 Normal Rate, Usage not exceeding 150 units per month
 
 	Section 1: Base Electricity Cost
@@ -79,27 +94,35 @@ Year: 2568
 	Section 3: 7% Value Added Tax
 		(Base Cost + Ft) x 7/100          30.35 Baht
 	Total Electricity Cost              465.11 Baht
+```
 
-Data Source
-The tariff rates, Ft values, and calculation logic are based on official data from the Provincial Electricity Authority (PEA) for the years 2566–2568, as provided on https://eservice.pea.co.th/EstimateBill/. Rates may vary beyond 2568 and should be updated accordingly.
+## Data Source
 
-Limitations
-The program assumes static rates for 2566–2568 and does not account for future rate changes.
-No graphical user interface (GUI); it runs solely in the terminal.
-Limited to the tariff structures implemented; additional categories require manual coding.
-Contributing
+The tariff rates, Ft values, and calculation logic are based on official data from the Provincial Electricity Authority (PEA) for the years 2566–2568, as provided on [PEA's official website](https://eservice.pea.co.th/EstimateBill/). Rates may vary beyond 2568 and should be updated accordingly.
+
+## Limitations
+
+- The program assumes static rates for 2566–2568 and does not account for future rate changes.
+- No graphical user interface (GUI); it runs solely in the terminal.
+- Limited to the tariff structures implemented; additional categories require manual coding.
+
+## Contributing
+
 This is a university project and not actively maintained. However, feel free to fork the repository and submit pull requests if you’d like to enhance it! Suggestions for improvements are welcome.
 
-License
+## License
+
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-Acknowledgments
-Provincial Electricity Authority (PEA) for providing the tariff data.
-University instructors and peers for guidance and feedback during development.
-Repository Link: https://github.com/DoubleP987/PEA_bill
+## Acknowledgments
+
+- **Provincial Electricity Authority (PEA)** for providing the tariff data.
+- **University instructors and peers** for guidance and feedback during development.
+
+### Repository Link
+[GitHub Repository](https://github.com/DoubleP987/PEA_bill)
 
 ---
 
-Developed by DoubleP987 as a university mini-project.
-
+Developed by **DoubleP987** as a university mini-project.
 
