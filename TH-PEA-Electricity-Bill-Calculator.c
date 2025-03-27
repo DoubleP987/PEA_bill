@@ -725,7 +725,7 @@ int main(){
     while(1){ // วนไปเรื่อย ๆ กด X เพื่อออก
         system("cls");
         menu();
-        printf("\nกด Enter เพื่อทำงานอีกครั้ง...(กด Ctrl + C เพื่อออก)");
+        printf("\nกด Enter เพื่อทำงานอีกครั้ง...(กด X เพื่อออก)");
         char x = getch(); // รอผู้ใช้กด Enter เพื่อเริ่มใหม่
         if(tolower(x) == 'x'){
             break;
