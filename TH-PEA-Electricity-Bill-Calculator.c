@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <locale.h>
+#include <conio.h>
+#include <ctype.h>
 
 const double VAT = 0.07; // อัตราภาษีมูลค่าเพิ่ม 7% ใช้ทุกที่ที่ต้องคำนวณ VAT
 
@@ -717,11 +719,14 @@ void menu(){
 int main(){
     setlocale(LC_NUMERIC, ""); // ตั้งค่าให้ตัวเลขมี comma (เช่น 10,000)
 
-    while(1){ // วนไปเรื่อย ๆ กด Ctrl+C เพื่อออก
+    while(1){ // วนไปเรื่อย ๆ กด X เพื่อออก
         system("cls");
         menu();
         printf("\nกด Enter เพื่อทำงานอีกครั้ง...(กด Ctrl + C เพื่อออก)");
-        getchar(); // รอผู้ใช้กด Enter เพื่อเริ่มใหม่
+        char x = getch(); // รอผู้ใช้กด Enter เพื่อเริ่มใหม่
+        if(tolower(x) == 'x'){
+            break;
+        }
     }
     return 0;
 }

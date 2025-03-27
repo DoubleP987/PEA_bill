@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <locale.h>
+#include <conio.h>
+#include <ctype.h>
 
 const double VAT = 0.07; // 7% Value Added Tax rate used everywhere VAT is calculated
 
@@ -739,11 +741,14 @@ void menu(){
 int main(){
     setlocale(LC_NUMERIC, "");
 
-    while(1){ // Infinite loop, press Ctrl+C to exit
+    while(1){ // Infinite loop, press X to exit
         system("cls");
         menu();
-        printf("\nPress Enter to continue...(Press Ctrl + C to exit)");
-        getchar(); // Wait for Enter to restart
+        printf("\nPress Enter to continue...(Press X to exit)");
+        char x = getch(); // Wait for Enter to restart
+        if(tolower(x) == 'x'){
+            break;
+        }
     }
     return 0;
 }
