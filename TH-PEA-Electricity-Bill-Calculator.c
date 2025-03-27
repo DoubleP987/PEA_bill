@@ -51,8 +51,11 @@ double max(double a, double b){
     }
 }
 // ฟังก์ชันคำนวณหน่วย Power Factor ถ้าเกินเกณฑ์ต้องจ่ายเพิ่ม
-double KVCharge(double kv, double kw){
-    return round(max(0, (kv - (kw * 0.6197)))); // คำนวณส่วนเกินของ kv เทียบกับ kw * 0.6197 ถ้าเกินได้เลข ปัดเป็นเต็ม ไม่เกินได้ 0
+double KVCharge(double NeedReactive, double HighestRate){
+    return round(max(0, (NeedReactive - (HighestRate * 0.6197)))); 
+    // คำนวณค่าที่เกินจาก NeedReactive เมื่อเทียบกับ HighestRate * 0.6197
+    // ปัดผลลัพธ์เป็นจำนวนเต็มที่ใกล้เคียงที่สุด
+    // ส่งกลับ 0 ถ้าผลลัพธ์เป็นค่าลบ
 }
 // ฟังก์ชันเลือกค่า Ft ตามเดือนและปี
 double getFt(int isResidential){ // isResidential = 1 ถ้าเป็นบ้าน, 0 ถ้าไม่ใช่
